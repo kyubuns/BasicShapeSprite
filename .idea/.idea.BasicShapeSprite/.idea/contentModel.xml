@@ -15,6 +15,7 @@
           <e p="Version.txt" t="Include" />
         </e>
         <e p="Development" t="Include">
+          <e p="CaptureScreenshot.cs" t="Include" />
           <e p="PackageExporter.cs" t="Include" />
         </e>
       </e>
