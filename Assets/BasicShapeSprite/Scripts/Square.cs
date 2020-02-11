@@ -10,6 +10,7 @@ namespace BasicShapeSprite
     {
         [SerializeField] public Color color;
         [SerializeField] public float round;
+        [SerializeField] public float border;
 
         private Mesh _mesh;
         private Vector3 _cachedScale;
@@ -38,6 +39,7 @@ namespace BasicShapeSprite
 
         public void OnValidate()
         {
+            if (_mesh == null) return;
             UpdateMeshUv();
         }
 
@@ -51,7 +53,9 @@ namespace BasicShapeSprite
         {
             var scale = transform.localScale;
             _cachedScale = scale;
+
             round = Mathf.Clamp(round, 0.0f, Mathf.Min(scale.x, scale.y) / 2f);
+            border = Mathf.Clamp(border, 0.0f, Mathf.Min(scale.x, scale.y) / 2f);
 
             _mesh.colors = new[]
             {
@@ -79,10 +83,10 @@ namespace BasicShapeSprite
 
             _mesh.uv3 = new[]
             {
-                new Vector2(round, 0f),
-                new Vector2(round, 0f),
-                new Vector2(round, 0f),
-                new Vector2(round, 0f),
+                new Vector2(round, border),
+                new Vector2(round, border),
+                new Vector2(round, border),
+                new Vector2(round, border),
             };
         }
     }
