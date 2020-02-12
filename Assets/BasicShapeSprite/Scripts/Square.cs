@@ -11,6 +11,10 @@ namespace BasicShapeSprite
         [SerializeField] public Color color;
         [SerializeField] public float round;
         [SerializeField] public float border;
+        [SerializeField] public bool topLeft = true;
+        [SerializeField] public bool topRight = true;
+        [SerializeField] public bool bottomLeft = true;
+        [SerializeField] public bool bottomRight = true;
 
         private Mesh _mesh;
         private Vector3 _cachedScale;
@@ -65,29 +69,29 @@ namespace BasicShapeSprite
                 color,
             };
 
-            _mesh.uv = new[]
+            _mesh.SetUVs(0, new[]
             {
-                new Vector2(0f, 0f),
-                new Vector2(scale.x, 0f),
-                new Vector2(0f, scale.y),
-                new Vector2(scale.x, scale.y),
-            };
+                new Vector4(0f, 0f, scale.x, scale.y),
+                new Vector4(scale.x, 0f, scale.x, scale.y),
+                new Vector4(0f, scale.y, scale.x, scale.y),
+                new Vector4(scale.x, scale.y, scale.x, scale.y),
+            });
 
-            _mesh.uv2 = new[]
+            _mesh.SetUVs(1, new[]
             {
-                new Vector2(scale.x, scale.y),
-                new Vector2(scale.x, scale.y),
-                new Vector2(scale.x, scale.y),
-                new Vector2(scale.x, scale.y),
-            };
+                new Vector2(round, border),
+                new Vector2(round, border),
+                new Vector2(round, border),
+                new Vector2(round, border),
+            });
 
-            _mesh.uv3 = new[]
+            _mesh.SetUVs(2, new[]
             {
-                new Vector2(round, border),
-                new Vector2(round, border),
-                new Vector2(round, border),
-                new Vector2(round, border),
-            };
+                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
+                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
+                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
+                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
+            });
         }
     }
 }
