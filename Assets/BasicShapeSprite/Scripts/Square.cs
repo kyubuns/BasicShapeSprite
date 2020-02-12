@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BasicShapeSprite
 {
@@ -60,6 +59,8 @@ namespace BasicShapeSprite
 
             round = Mathf.Clamp(round, 0.0f, Mathf.Min(scale.x, scale.y) / 2f);
             border = Mathf.Clamp(border, 0.0f, Mathf.Min(scale.x, scale.y) / 2f);
+            var tmpBorder = border;
+            if (Mathf.Approximately(tmpBorder, 0.0f)) tmpBorder = Mathf.Min(scale.x, scale.y) / 2f;
 
             _mesh.colors = new[]
             {
@@ -79,10 +80,10 @@ namespace BasicShapeSprite
 
             _mesh.SetUVs(1, new[]
             {
-                new Vector2(round, border),
-                new Vector2(round, border),
-                new Vector2(round, border),
-                new Vector2(round, border),
+                new Vector2(round, tmpBorder),
+                new Vector2(round, tmpBorder),
+                new Vector2(round, tmpBorder),
+                new Vector2(round, tmpBorder),
             });
 
             _mesh.SetUVs(2, new[]
