@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace BasicShapeSprite
 {
@@ -70,7 +71,7 @@ namespace BasicShapeSprite
                 color,
             };
 
-            _mesh.SetUVs(0, new[]
+            _mesh.SetUVs(0, new List<Vector4>
             {
                 new Vector4(0f, 0f, scale.x, scale.y),
                 new Vector4(scale.x, 0f, scale.x, scale.y),
@@ -78,7 +79,7 @@ namespace BasicShapeSprite
                 new Vector4(scale.x, scale.y, scale.x, scale.y),
             });
 
-            _mesh.SetUVs(1, new[]
+            _mesh.SetUVs(1, new List<Vector2>
             {
                 new Vector2(round, tmpBorder),
                 new Vector2(round, tmpBorder),
@@ -86,7 +87,7 @@ namespace BasicShapeSprite
                 new Vector2(round, tmpBorder),
             });
 
-            _mesh.SetUVs(2, new[]
+            _mesh.SetUVs(2, new List<Vector4>
             {
                 new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
                 new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
