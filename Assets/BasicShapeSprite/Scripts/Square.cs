@@ -18,6 +18,10 @@ namespace BasicShapeSprite
 
         private Mesh _mesh;
         private Vector3 _cachedScale;
+        private readonly List<Color> _cachedColor = new List<Color> { default, default, default, default };
+        private readonly List<Vector4> _cachedUv0 = new List<Vector4> { default, default, default, default };
+        private readonly List<Vector2> _cachedUv1 = new List<Vector2> { default, default, default, default };
+        private readonly List<Vector4> _cachedUv2 = new List<Vector4> { default, default, default, default };
 
         public void Start()
         {
@@ -63,37 +67,20 @@ namespace BasicShapeSprite
             var tmpBorder = border;
             if (Mathf.Approximately(tmpBorder, 0.0f)) tmpBorder = Mathf.Min(scale.x, scale.y) / 2f;
 
-            _mesh.colors = new[]
-            {
-                color,
-                color,
-                color,
-                color,
-            };
+            _cachedColor[0] = _cachedColor[1] = _cachedColor[2] = _cachedColor[3] = color;
+            _mesh.SetColors(_cachedColor);
 
-            _mesh.SetUVs(0, new List<Vector4>
-            {
-                new Vector4(0f, 0f, scale.x, scale.y),
-                new Vector4(scale.x, 0f, scale.x, scale.y),
-                new Vector4(0f, scale.y, scale.x, scale.y),
-                new Vector4(scale.x, scale.y, scale.x, scale.y),
-            });
+            _cachedUv0[0] = new Vector4(0f, 0f, scale.x, scale.y);
+            _cachedUv0[1] = new Vector4(scale.x, 0f, scale.x, scale.y);
+            _cachedUv0[2] = new Vector4(0f, scale.y, scale.x, scale.y);
+            _cachedUv0[3] = new Vector4(scale.x, scale.y, scale.x, scale.y);
+            _mesh.SetUVs(0, _cachedUv0);
 
-            _mesh.SetUVs(1, new List<Vector2>
-            {
-                new Vector2(round, tmpBorder),
-                new Vector2(round, tmpBorder),
-                new Vector2(round, tmpBorder),
-                new Vector2(round, tmpBorder),
-            });
+            _cachedUv1[0] = _cachedUv1[1] = _cachedUv1[2] = _cachedUv1[3] = new Vector2(round, tmpBorder);
+            _mesh.SetUVs(1, _cachedUv1);
 
-            _mesh.SetUVs(2, new List<Vector4>
-            {
-                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
-                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
-                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
-                new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f),
-            });
+            _cachedUv2[0] = _cachedUv2[1] = _cachedUv2[2] = _cachedUv2[3] = new Vector4(bottomLeft ? 1f : 0f, topLeft ? 1f : 0f, bottomRight ? 1f : 0f, topRight ? 1f : 0f);
+            _mesh.SetUVs(2, _cachedUv2);
         }
     }
 }
