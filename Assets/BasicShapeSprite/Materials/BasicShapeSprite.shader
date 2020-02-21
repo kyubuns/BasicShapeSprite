@@ -2,6 +2,7 @@
 {
     Properties
     {
+        _Smooth ("Smooth", Float) = 0.01
     }
 
     SubShader
@@ -42,6 +43,8 @@
                 float border : TEXCOORD3;
             };
 
+            float _Smooth;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -58,8 +61,8 @@
             {
                 fixed round = i.round[0];
                 fixed r1 = distance(i.uv, fixed2(round, round));
-                fixed ss1 = 1 - step(round, r1);
-                fixed ss2 = step(round - i.border, r1);
+                fixed ss1 = 1 - smoothstep(round, round + _Smooth, r1);
+                fixed ss2 = smoothstep(round - i.border - _Smooth, round - i.border, r1);
 
                 fixed ss = ss1 * ss2;
                 fixed xx = step(i.uv.x, round);
@@ -71,8 +74,8 @@
             {
                 fixed round = i.round[1];
                 fixed r1 = distance(i.uv, fixed2(round, i.wh.y - round));
-                fixed ss1 = 1 - step(round, r1);
-                fixed ss2 = step(round - i.border, r1);
+                fixed ss1 = 1 - smoothstep(round, round + _Smooth, r1);
+                fixed ss2 = smoothstep(round - i.border - _Smooth, round - i.border, r1);
 
                 fixed ss = ss1 * ss2;
                 fixed xx = step(i.uv.x, round);
@@ -84,8 +87,8 @@
             {
                 fixed round = i.round[2];
                 fixed r1 = distance(i.uv, fixed2(i.wh.x - round, round));
-                fixed ss1 = 1 - step(round, r1);
-                fixed ss2 = step(round - i.border, r1);
+                fixed ss1 = 1 - smoothstep(round, round + _Smooth, r1);
+                fixed ss2 = smoothstep(round - i.border - _Smooth, round - i.border, r1);
 
                 fixed ss = ss1 * ss2;
                 fixed xx = step(i.wh.x - i.uv.x, round);
@@ -97,8 +100,8 @@
             {
                 fixed round = i.round[3];
                 fixed r1 = distance(i.uv, fixed2(i.wh.x - round, i.wh.y - round));
-                fixed ss1 = 1 - step(round, r1);
-                fixed ss2 = step(round - i.border, r1);
+                fixed ss1 = 1 - smoothstep(round, round + _Smooth, r1);
+                fixed ss2 = smoothstep(round - i.border - _Smooth, round - i.border, r1);
 
                 fixed ss = ss1 * ss2;
                 fixed xx = step(i.wh.x - i.uv.x, round);
